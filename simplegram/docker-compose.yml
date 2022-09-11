@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: simplegram_mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - "simplegram_mongo:/data/db"
+
+  api:
+    container_name: simplegram_api
+    restart: "always"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/code/
+    env_file: .env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    links:
+      - mongo
+
+volumes:
+  simplegram_mongo:
