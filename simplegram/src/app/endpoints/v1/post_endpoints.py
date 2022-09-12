@@ -52,7 +52,7 @@ async def get_post(
     return await post_service.get(post_id)
 
 
-@router.get("/{post_id}/{post_action}", response_model=PostResponseSchema)
+@router.post("/{post_id}/{post_action}", response_model=PostResponseSchema)
 async def make_post_action(
     post_id: uuid.UUID,
     post_action: PostAction,
