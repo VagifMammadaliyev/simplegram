@@ -1,21 +1,19 @@
 import uuid
 from typing import List
-
 from fastapi import Depends
 from fastapi.routing import APIRouter
 
-from app.schemas.user_schemas import UserRecordSchema
+from app.dependencies.auth import get_current_user
+from app.dependencies.services import post_service
 from app.schemas.post_schemas import (
-    PostResponseSchema,
-    PostEditRequestSchema,
     PostAction,
     PostAnalyticsRequestSchema,
     PostAnalyticsResponseSchema,
+    PostEditRequestSchema,
+    PostResponseSchema,
 )
-from app.dependencies.auth import get_current_user
-from app.dependencies.services import post_service
+from app.schemas.user_schemas import UserRecordSchema
 from app.services.post_service import PostService
-
 
 router = APIRouter(prefix="/posts", tags={"posts"})
 

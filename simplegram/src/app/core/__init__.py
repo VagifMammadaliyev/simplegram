@@ -1,13 +1,12 @@
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
 from fastapi.requests import Request
 from fastapi_jwt_auth.exceptions import AuthJWTException
+from fastapi.responses import JSONResponse
 from pymongo import ASCENDING
 
-from app.core.settings import get_settings
 from app.core.database import Engine
+from app.core.settings import get_settings
 from app.errors.app_errors import AppError
-
 
 app_settings = get_settings()
 

@@ -2,8 +2,7 @@ import os
 from functools import lru_cache
 
 from fastapi_jwt_auth import AuthJWT
-from pydantic import BaseSettings, AnyUrl
-
+from pydantic import AnyUrl, BaseSettings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 

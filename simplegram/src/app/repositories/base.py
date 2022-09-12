@@ -1,11 +1,10 @@
-from typing import Any, TypeVar, Dict, List
+from typing import Any, Dict, List, TypeVar
 
 from fastapi import Depends
 
 from app.core.database import Engine
-from app.schemas.base import StorageSchema
 from app.dependencies import database
-
+from app.schemas.base import StorageSchema
 
 Record = TypeVar("Record", bound=StorageSchema)
 
