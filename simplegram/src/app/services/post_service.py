@@ -9,6 +9,7 @@ from app.schemas.post_schemas import (
     PostAuthorResponseSchema,
     PostAction,
     PostActionRecordSchema,
+    PostAnalyticsRequestSchema,
 )
 from app.repositories.posts_repository import PostsRepository, PostActionsRepository
 from app.errors.app_errors import ValidationError
@@ -23,7 +24,6 @@ class PostService:
     ) -> None:
         self.posts_repository = posts_repository
         self.post_actions_repository = post_actions_repository
-        repo_to_get_db_client = posts_repository or post_actions_repository
 
     async def create(
         self, user: UserRecordSchema, post_data: PostEditRequestSchema
@@ -56,6 +56,7 @@ class PostService:
                 error_data=[{"field": "post_id", "detail": f"Post already {action}d"}]
             )
         deleted_count = await self.post_actions_repository.delete_by_action(
+            user.id,
             post_id,
             action=PostAction.like
             if action == PostAction.unlike
@@ -64,4 +65,9 @@ class PostService:
         delta = 1 + deleted_count
         await self.posts_repository.change_like_count(
             post_id, like_count_delta=delta if action == PostAction.like else -delta
+        )
+
+    async def get_analytics(self, post_analytics_data: PostAnalyticsRequestSchema):
+        return await self.post_actions_repository.get_analytics(
+            post_analytics_data.date_from, post_analytics_data.date_to
         )

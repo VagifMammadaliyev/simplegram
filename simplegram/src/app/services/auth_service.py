@@ -1,3 +1,4 @@
+import datetime
 from typing import Optional
 
 from fastapi_jwt_auth import AuthJWT
@@ -48,6 +49,9 @@ class AuthService:
             login_data.password, user.hashed_password
         ):
             raise LoginError
+        await self.users_repository.update_last_login(
+            user.id, datetime.datetime.utcnow()
+        )
         return (
             self.login_token_handler.create_access_token(subject=str(user.id)),
             self.login_token_handler.create_refresh_token(subject=str(user.id)),

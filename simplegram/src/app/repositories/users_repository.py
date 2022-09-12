@@ -1,4 +1,5 @@
 import uuid
+import datetime
 from typing import Optional
 
 from app.repositories.base import Repository
@@ -16,3 +17,19 @@ class UsersRepository(Repository):
     async def get(self, user_id: uuid.UUID) -> Optional[UserRecordSchema]:
         result = await self._get({"_id": user_id})
         return UserRecordSchema(**result) if result else None
+
+    async def update_last_login(
+        self, user_id: uuid.UUID, last_login: datetime.datetime
+    ) -> None:
+        await self._update_one(
+            {"_id": user_id},
+            {"$set": {"last_login": last_login}},
+        )
+
+    async def update_last_request(
+        self, user_id: uuid.UUID, last_request: datetime.datetime
+    ) -> None:
+        await self._update_one(
+            {"_id": user_id},
+            {"$set": {"last_request": last_request}},
+        )

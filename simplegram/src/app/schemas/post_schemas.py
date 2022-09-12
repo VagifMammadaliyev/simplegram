@@ -38,5 +38,15 @@ class PostEditRequestSchema(JsonSchema):
     title: str
 
 
+class PostAnalyticsRequestSchema(JsonSchema):
+    date_from: datetime.date
+    date_to: datetime.date
+
+
 class PostResponseSchema(PostRecordSchema):
     pass
+
+
+class PostAnalyticsResponseSchema(JsonSchema):
+    date: datetime.date
+    count: int
