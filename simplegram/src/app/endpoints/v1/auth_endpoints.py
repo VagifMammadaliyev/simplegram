@@ -1,17 +1,17 @@
 from fastapi import Depends
 from fastapi.routing import APIRouter
 
-from app.dependencies.services import auth_service
 from app.dependencies.auth import get_current_user
-from app.services.auth_service import AuthService
+from app.dependencies.services import auth_service
 from app.schemas.auth_schemas import (
-    RegisterRequestSchema,
+    AccessTokenResponseSchema,
     AuthDetailResponseSchema,
     LoginRequestSchema,
-    AccessTokenResponseSchema,
+    RegisterRequestSchema,
 )
 from app.schemas.common_schemas import SimpleDetailResponseSchema
-from app.schemas.user_schemas import UserResponseSchema, UserRecordSchema
+from app.schemas.user_schemas import UserRecordSchema, UserResponseSchema
+from app.services.auth_service import AuthService
 
 router = APIRouter(prefix="/auth", tags={"auth"})
 

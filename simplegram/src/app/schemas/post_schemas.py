@@ -1,11 +1,11 @@
-import uuid
 import datetime
+import uuid
 from enum import Enum
 from typing import Optional
 
 from pydantic import *
 
-from app.schemas.base import StorageSchema, JsonSchema
+from app.schemas.base import JsonSchema, StorageSchema
 
 
 class PostAuthorResponseSchema(JsonSchema):

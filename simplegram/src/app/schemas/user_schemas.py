@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import *
 
-from app.schemas.base import StorageSchema, JsonSchema
+from app.schemas.base import JsonSchema, StorageSchema
 
 
 class UserRecordSchema(StorageSchema):

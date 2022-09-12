@@ -1,13 +1,13 @@
-import uuid
 import datetime
+import uuid
 from typing import List
 
-from app.schemas.post_schemas import (
-    PostRecordSchema,
-    PostActionRecordSchema,
-    PostAction,
-)
 from app.repositories.base import Repository
+from app.schemas.post_schemas import (
+    PostAction,
+    PostActionRecordSchema,
+    PostRecordSchema,
+)
 
 
 class PostsRepository(Repository):

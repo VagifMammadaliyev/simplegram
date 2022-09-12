@@ -1,10 +1,10 @@
 from fastapi import Depends
 from fastapi_jwt_auth import AuthJWT
 
+from app.repositories.posts_repository import PostActionsRepository, PostsRepository
+from app.repositories.users_repository import UsersRepository
 from app.services.auth_service import AuthService
 from app.services.post_service import PostService
-from app.repositories.users_repository import UsersRepository
-from app.repositories.posts_repository import PostsRepository, PostActionsRepository
 from app.utils.crypto import PasswordHasher
 
 

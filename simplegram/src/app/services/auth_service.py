@@ -4,13 +4,12 @@ from typing import Optional
 from fastapi_jwt_auth import AuthJWT
 
 from app.core.settings import get_settings
-from app.schemas.user_schemas import UserRecordSchema
-from app.schemas.auth_schemas import RegisterRequestSchema, LoginRequestSchema
-from app.repositories.users_repository import UsersRepository
-from app.utils.crypto import PasswordHasher
+from app.errors.app_errors import LoginError, ValidationError
 from app.errors.database_errors import DuplicateKeyError
-from app.errors.app_errors import ValidationError, LoginError
-
+from app.repositories.users_repository import UsersRepository
+from app.schemas.auth_schemas import LoginRequestSchema, RegisterRequestSchema
+from app.schemas.user_schemas import UserRecordSchema
+from app.utils.crypto import PasswordHasher
 
 app_settings = get_settings()
 

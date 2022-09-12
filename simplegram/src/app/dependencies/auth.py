@@ -1,5 +1,5 @@
-import uuid
 import datetime
+import uuid
 
 from fastapi import Depends
 from fastapi_jwt_auth import AuthJWT

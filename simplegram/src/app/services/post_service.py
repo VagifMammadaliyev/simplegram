@@ -1,19 +1,19 @@
 import uuid
-from typing import Optional, List
+from typing import List, Optional
 
-from app.schemas.user_schemas import UserRecordSchema
+from app.errors.app_errors import ValidationError
+from app.errors.database_errors import DuplicateKeyError
+from app.repositories.posts_repository import PostActionsRepository, PostsRepository
 from app.schemas.post_schemas import (
-    PostRecordSchema,
-    PostEditRequestSchema,
-    PostResponseSchema,
-    PostAuthorResponseSchema,
     PostAction,
     PostActionRecordSchema,
     PostAnalyticsRequestSchema,
+    PostAuthorResponseSchema,
+    PostEditRequestSchema,
+    PostRecordSchema,
+    PostResponseSchema,
 )
-from app.repositories.posts_repository import PostsRepository, PostActionsRepository
-from app.errors.app_errors import ValidationError
-from app.errors.database_errors import DuplicateKeyError
+from app.schemas.user_schemas import UserRecordSchema
 
 
 class PostService:

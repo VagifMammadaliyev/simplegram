@@ -1,12 +1,13 @@
-from typing import Dict, Any, List, Optional
-from pymongo.results import InsertOneResult
-from pymongo.errors import DuplicateKeyError as MongoDuplicateKeyError
-from pydantic import AnyUrl
+from typing import Any, Dict, List, Optional
+
 from motor.motor_asyncio import (
     AsyncIOMotorClient,
-    AsyncIOMotorDatabase,
     AsyncIOMotorCollection,
+    AsyncIOMotorDatabase,
 )
+from pydantic import AnyUrl
+from pymongo.errors import DuplicateKeyError as MongoDuplicateKeyError
+from pymongo.results import InsertOneResult
 
 from app.errors.database_errors import DuplicateKeyError
 

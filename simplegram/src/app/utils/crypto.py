@@ -1,7 +1,6 @@
-from passlib.context import CryptContext
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
-
+from passlib.context import CryptContext
 
 crypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
