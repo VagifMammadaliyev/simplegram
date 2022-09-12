@@ -20,6 +20,10 @@ def _on_application_startup_event(app: FastAPI) -> None:
         await app.state.database.collection("users").create_index(
             [("email", ASCENDING)], unique=True
         )
+        await app.state.database.collection("post_actions").create_index(
+            [("user_id", ASCENDING), ("post_id", ASCENDING), ("action", ASCENDING)],
+            unique=True,
+        )
 
     return _initialize_application
 

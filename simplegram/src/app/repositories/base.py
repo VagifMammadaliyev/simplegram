@@ -28,3 +28,14 @@ class Repository:
 
     async def _get(self, criteria: Dict[str, Any]) -> Any:
         return await self.database.find_one(self.collection, criteria)
+
+    async def _list(self) -> Any:
+        return await self.database.find(self.collection, {})
+
+    async def _update_one(
+        self, criteria: Dict[str, Any], update: Dict[str, Any]
+    ) -> Any:
+        return await self.database.update_one(self.collection, criteria, update)
+
+    async def _delete(self, criteria: Dict[str, Any]) -> Any:
+        return await self.database.delete(self.collection, criteria)

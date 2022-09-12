@@ -1,5 +1,4 @@
-from re import T
-from typing import Dict, Any
+from typing import Dict, Any, List, Optional
 from pymongo.results import InsertOneResult
 from pymongo.errors import DuplicateKeyError as MongoDuplicateKeyError
 from pydantic import AnyUrl
@@ -41,3 +40,21 @@ class Engine:
         self, collection_name: str, criteria: Dict[str, Any]
     ) -> Dict[str, Any]:
         return await self.collection(collection_name).find_one(criteria)
+
+    async def find(
+        self, collection_name: str, criteria: Dict[str, Any]
+    ) -> List[Dict[str, Any]]:
+        return await self.collection(collection_name).find(criteria).to_list(None)
+
+    async def update_one(
+        self,
+        collection_name: str,
+        criteria: Dict[str, Any],
+        update: Dict[str, Any],
+    ) -> None:
+        await self.collection(collection_name).update_one(criteria, update)
+
+    async def delete(
+        self, collection_name: str, criteria: Dict[str, Any]
+    ) -> Optional[Dict[str, Any]]:
+        return await self.collection(collection_name).delete_many(criteria)
