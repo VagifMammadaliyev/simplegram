@@ -1,4 +1,5 @@
 import uuid
+import datetime
 from typing import List
 
 from app.schemas.post_schemas import (
@@ -38,6 +39,49 @@ class PostActionsRepository(Repository):
     ) -> PostActionRecordSchema:
         return await self._create(post_action)
 
-    async def delete_by_action(self, post_id: uuid.UUID, action: PostAction) -> int:
-        result = await self._delete({"post_id": post_id, "action": action.value})
+    async def delete_by_action(
+        self, user_id: uuid.UUID, post_id: uuid.UUID, action: PostAction
+    ) -> int:
+        result = await self._delete(
+            {"post_id": post_id, "user_id": user_id, "action": action.value}
+        )
         return result.deleted_count
+
+    async def get_analytics(self, date_from: datetime.date, date_to: datetime.date):
+        pipeline = [
+            {
+                "$match": {
+                    "action": PostAction.like.value,
+                    "timestamp": {
+                        "$gte": datetime.datetime.fromisoformat(date_from.isoformat()),
+                        "$lte": datetime.datetime.fromisoformat(date_to.isoformat()),
+                    },
+                }
+            },
+            {
+                "$group": {
+                    "_id": {
+                        "$dateToString": {
+                            "format": "%Y-%m-%d",
+                            "date": "$timestamp",
+                        },
+                    },
+                    "count": {"$sum": 1},
+                    "first": {"$min": "$timestamp"},
+                },
+            },
+            {"$sort": {"_id.date": 1}},
+            {
+                "$project": {
+                    "_id": 0,
+                    "date": {
+                        "$dateToString": {
+                            "format": "%Y-%m-%d",
+                            "date": "$first",
+                        }
+                    },
+                    "count": 1,
+                }
+            },
+        ]
+        return await self._aggregate(pipeline)

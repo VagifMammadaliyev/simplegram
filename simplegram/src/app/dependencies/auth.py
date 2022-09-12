@@ -1,4 +1,5 @@
 import uuid
+import datetime
 
 from fastapi import Depends
 from fastapi_jwt_auth import AuthJWT
@@ -16,4 +17,6 @@ async def get_current_user(
     Authorize.jwt_required()
     user_id = Authorize.get_jwt_subject()
     user = await users_repository.get(uuid.UUID(user_id))
+    if user:
+        await users_repository.update_last_request(user.id, datetime.datetime.utcnow())
     return user

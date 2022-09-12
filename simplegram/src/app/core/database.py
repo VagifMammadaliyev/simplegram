@@ -58,3 +58,8 @@ class Engine:
         self, collection_name: str, criteria: Dict[str, Any]
     ) -> Optional[Dict[str, Any]]:
         return await self.collection(collection_name).delete_many(criteria)
+
+    async def aggregate(
+        self, collection_name: str, pipeline: List[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        return await self.collection(collection_name).aggregate(pipeline).to_list(None)

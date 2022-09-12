@@ -1,7 +1,7 @@
 import uuid
 from typing import List
 
-from fastapi import Depends, Request
+from fastapi import Depends
 from fastapi.routing import APIRouter
 
 from app.schemas.user_schemas import UserRecordSchema
@@ -9,6 +9,8 @@ from app.schemas.post_schemas import (
     PostResponseSchema,
     PostEditRequestSchema,
     PostAction,
+    PostAnalyticsRequestSchema,
+    PostAnalyticsResponseSchema,
 )
 from app.dependencies.auth import get_current_user
 from app.dependencies.services import post_service
@@ -16,6 +18,14 @@ from app.services.post_service import PostService
 
 
 router = APIRouter(prefix="/posts", tags={"posts"})
+
+
+@router.get("/analytics", response_model=List[PostAnalyticsResponseSchema])
+async def get_analytics(
+    body: PostAnalyticsRequestSchema, post_service: PostService = Depends(post_service)
+):
+    post_analytics = await post_service.get_analytics(body)
+    return post_analytics
 
 
 @router.post("/", response_model=PostResponseSchema)

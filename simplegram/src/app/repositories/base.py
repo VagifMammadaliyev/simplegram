@@ -1,4 +1,4 @@
-from typing import Any, TypeVar, Dict, Any
+from typing import Any, TypeVar, Dict, List
 
 from fastapi import Depends
 
@@ -39,3 +39,6 @@ class Repository:
 
     async def _delete(self, criteria: Dict[str, Any]) -> Any:
         return await self.database.delete(self.collection, criteria)
+
+    async def _aggregate(self, pipeline: List[Dict[str, Any]]) -> Any:
+        return await self.database.aggregate(self.collection, pipeline)
