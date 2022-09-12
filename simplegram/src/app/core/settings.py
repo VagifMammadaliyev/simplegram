@@ -15,7 +15,7 @@ class AppSettings(BaseSettings):
     REDOC_URL: str = "/redoc"
     DOCS_URL: str = "/docs"
 
-    MONGO_URL: AnyUrl = "mongodb://mongo:27017/simplegram?uuidRepresentation=standard"
+    MONGO_URL: AnyUrl = ""
     AUTHJWT_SECRET_KEY: str = "secret"
     AUTHJWT_ALGORITHM: str = "HS256"
 
